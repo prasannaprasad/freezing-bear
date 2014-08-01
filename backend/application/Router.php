@@ -33,7 +33,7 @@ class Router
         #error_log("Trying readability on $this->file");
         if (is_readable($this->file) == false)
         {
-            throw new FreezingBearException ("$this->file not readable", 1110, __FILE__, __LINE__);
+            throw new WebServiceException ("$this->file not readable", 1110, __FILE__, __LINE__);
         }
         include ($this->file);
 
@@ -41,7 +41,7 @@ class Router
 
         if (is_callable(array($controller, $this->action)) == false)
         {
-            throw new FreezingBearException ("Action $this->action  not available", 1111,__FILE__,__LINE__);
+            throw new WebServiceException ("Action $this->action  not available", 1111,__FILE__,__LINE__);
         }
         else
         {
@@ -85,7 +85,7 @@ class Router
                 break;
             default:
                 error_log("Unsupported controller ");
-                throw new FreezingBearException ("Action $this->action  not available", 1111,__FILE__,__LINE__);
+                throw new WebServiceException ("Action $this->action  not available", 1111,__FILE__,__LINE__);
 
         }
 
