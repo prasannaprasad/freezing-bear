@@ -7,6 +7,5 @@ Abstract Class BaseController
         $this->registry = $registry;
     }
 
-    abstract function index();
 
 }

@@ -14,7 +14,6 @@ try
     $router->setPath (__SITE_PATH . '/controller');
     $router->loader();
     header("HTTP/1.1 200 OK");
-    error_log("HELLO");
 }
 catch (Exception $e)
 {
