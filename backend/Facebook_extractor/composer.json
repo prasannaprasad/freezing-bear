@@ -1,0 +1,15 @@
+{
+    "name": "freezingbear/facebook-extractor",
+    "description": "Description of project Facebook_extractor.",
+    "authors": [
+        {
+            "name": "gbaskaran",
+            "email": "guruprasadbaskaran@gmail.com"
+        }
+    ],
+    "require": {
+    },
+    "require-dev": {
+        "facebook/php-sdk-v4": "4.0.9"
+    }
+}
