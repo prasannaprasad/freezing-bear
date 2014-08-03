@@ -1,6 +1,6 @@
 <?php
 
-include('../../application/WebServiceException.php');
+include_once('application/WebServiceException.php');
 
 class MysqlConnector
 {
@@ -34,9 +34,23 @@ class MysqlConnector
         error_log("Executing in getSingleRecord: " . $query);
         $this->result = mysqli_query($this->conn,$query);
         if(!$this->result)
-            throw new WebServiceException("Unable to execute query",2016,__FILE__,__LINE__);
+            throw new WebServiceException("Unable to execute query" . mysqli_error($this->conn),2016,__FILE__,__LINE__);
         return mysqli_fetch_assoc($this->result);
     }
 
+    public function getRecords($query)
+    {
+        $res_array = array();
+        error_log("Executing: $query");
+        $this->result = mysqli_query($this->conn,$query);
+        if(!$this->result)
+            throw new WebServiceException("Unable to execute query  " . mysqli_error($this->conn) ,2017,__FILE__,__LINE__);
+
+
+        while($data = mysqli_fetch_assoc($this->result))
+            $res_array[] = $data;
+        return $res_array;
+
+    }
 
 }

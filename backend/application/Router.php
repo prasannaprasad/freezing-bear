@@ -1,6 +1,6 @@
 <?php
 
-include('WebServiceException.php');
+include_once('WebServiceException.php');
 
 class Router
 {
@@ -80,8 +80,12 @@ class Router
         {
             case "user":
                 $this->controller = 'User';
-                $this->action = 'getUser';
                 $uri_components[4] = preg_replace("/\?.*/","",$uri_components[4]);
+
+                if($uri_components[5] === 'stampcloud')
+                    $this->action = 'getUserStampCloud';
+                else
+                    $this->action = 'getUser';
                 break;
             default:
                 error_log("Unsupported controller ");
