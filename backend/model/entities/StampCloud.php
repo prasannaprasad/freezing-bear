@@ -6,16 +6,13 @@
  * Time: 9:05 AM
  * To change this template use File | Settings | File Templates.
  */
+include_once ('BaseContainer.php');
 
-class StampCloud
+class StampCloud extends BaseContainer
 {
     public $fb_user_id;
     public $stamp_count;
 
-    public function getJSON()
-    {
-        return json_encode($this);
-    }
 
     public function __construct($fb_user_id)
     {

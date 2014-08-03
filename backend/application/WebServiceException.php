@@ -1,5 +1,5 @@
 <?php
-class FreezingBearException extends Exception
+class WebServiceException extends Exception
 {
     function __construct($message, $code,$file,$line )
     {

@@ -87,6 +87,20 @@ class Router
                 else
                     $this->action = 'getUser';
                 break;
+            case "stamp":
+                $this->controller = 'Stamp';
+                if($request_method == 'POST')
+                    $this->action = 'addStamp';
+                else
+                    throw new WebServiceException ("Unsupported action on Stamp", 1111,__FILE__,__LINE__);
+                break;
+            case "verb":
+                $this->controller = 'Verb';
+                if($request_method == 'POST')
+                    $this->action = 'addVerb';
+                else
+                    throw new WebServiceException ("Unsupported action on Verb", 1111,__FILE__,__LINE__);
+                break;
             default:
                 error_log("Unsupported controller ");
                 throw new WebServiceException ("Action $this->action  not available", 1111,__FILE__,__LINE__);

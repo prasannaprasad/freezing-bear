@@ -1,6 +1,6 @@
 <?php
-include('DBConnection.php');
-include __SITE_PATH . '/model/entities/' . 'User.php';
+include_once('DBConnection.php');
+include_once __SITE_PATH . '/model/entities/' . 'User.php';
 
 class UserDao
 {

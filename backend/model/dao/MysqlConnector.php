@@ -53,4 +53,21 @@ class MysqlConnector
 
     }
 
+    public function getPreparedStatement($query)
+    {
+        if (!($stmt = mysqli_prepare($this->conn,$query)))
+            throw new WebServiceException("Unable to prepare query  " . mysqli_error($this->conn) ,2022,__FILE__,__LINE__);
+        return $stmt;
+    }
+
+    public function executeQuery($query)
+    {
+        error_log("Executing in executeQuery: $query");
+        $this->result = mysqli_query($this->conn,$query);
+        if(!$this->result)
+            throw new WebServiceException("Unable to execute query",2015,__FILE__,__LINE__);
+        return mysqli_insert_id($this->conn);
+    }
+
+
 }

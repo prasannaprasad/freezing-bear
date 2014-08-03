@@ -1,6 +1,7 @@
 <?php
+include_once('BaseContainer.php');
 
-class User
+class User extends  BaseContainer
 {
     public $id;
     public $fb_id;
@@ -32,10 +33,5 @@ class User
         $this->birthdate = $birthdate;
     }
 
-
-    public function getJSON()
-    {
-        return json_encode($this);
-    }
 }
 

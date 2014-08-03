@@ -1,6 +1,6 @@
 <?php
 
-require_once("MysqlConnector.php");
+include_once("MysqlConnector.php");
 
 class DBConnection
 {
