@@ -28,9 +28,9 @@ class NounDao
         $stmt->bind_param("s",$noun_name);
         if(!($status = $stmt->execute()))
             throw new WebServiceException("Unable to execute query  " ,3017,__FILE__,__LINE__);
-        $stmt->store_result();
         $id = $name = $create_time = '';
         $stmt->bind_result($id,$name,$create_time);
+        $stmt->fetch();
         return new Noun($id,$name,$create_time);
     }
 

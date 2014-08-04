@@ -24,9 +24,9 @@ class VerbDao
         $stmt->bind_param("s",$verb_name);
         if(!($status = $stmt->execute()))
             throw new WebServiceException("Unable to execute query  " ,3017,__FILE__,__LINE__);
-        $stmt->store_result();
         $id = $name = $create_time = '';
         $stmt->bind_result($id,$name,$create_time);
+        $stmt->fetch();
         return new Verb($id,$name,$create_time);
         /*
         $query = "Select * from Verbs where name='" . $verb_name . "'";
