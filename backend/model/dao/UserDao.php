@@ -21,7 +21,7 @@ class UserDao
       //  return $user;
     }
 
-    public function addUser($fb_id,$first_name,$last_name,$create_time,$mod_time, $profile_pic,
+    public function addUser($fb_id,$first_name,$last_name,$profile_pic,
                          $gender,$hometown_name,$relationship_status,$birthdate,$email,$name,$location,$timezone)
     {
         $db = DBConnection::getInstance()->getHandle();
