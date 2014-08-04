@@ -23,5 +23,15 @@ Class NounController Extends BaseController
 
     }
 
+    public function searchNouns($query)
+    {
+        $query = $this->registry->query_params["query"];
+
+        $nounDao = new NounDao();
+        $nouns = $nounDao->searchNouns($query);
+
+        $this->registry->data = json_encode($nouns);
+    }
+
 
 }

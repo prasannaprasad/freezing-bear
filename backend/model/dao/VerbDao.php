@@ -59,11 +59,9 @@ class VerbDao
         $verbs = array();
 
         foreach($results as $r)
-            array_push($verbs, new Verb());
+            array_push($verbs, new Verb($r["id"],$r["name"],$r["create_time"]));
 
-
-
-
+        return $verbs;
 
     }
 }

@@ -23,5 +23,14 @@ Class VerbController Extends BaseController
 
     }
 
+    public function searchVerbs($query)
+    {
+        $query = $this->registry->query_params["query"];
+
+        $verbDao = new VerbDao();
+        $verbs = $verbDao->searchVerbs($query);
+
+        $this->registry->data = json_encode($verbs);
+    }
 
 }

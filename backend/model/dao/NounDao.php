@@ -47,4 +47,19 @@ class NounDao
         error_log("Noun $name inserted with $id and status $status");
         return new Noun($id,$name,$create_time);
     }
+
+    public function searchNouns($query)
+    {
+        $db = DBConnection::getInstance()->getHandle();
+        $query = " SELECT * from Nouns where name like '%" . $query . "%'";
+
+        $results = $db->getRecords($query);
+        $nouns = array();
+
+        foreach($results as $r)
+            array_push($nouns, new Noun($r["id"],$r["name"],$r["create_time"]));
+
+        return $nouns;
+
+    }
 }

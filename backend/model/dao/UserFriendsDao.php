@@ -1,6 +1,6 @@
 <?php
 include_once('DBConnection.php');
-include_once __SITE_PATH . '/model/entities/' . 'UserFriends.php';
+include_once __SITE_PATH . '/model/entities/' . 'UserFriend.php';
 
 class UserFriendsDao
 {

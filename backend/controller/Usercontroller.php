@@ -19,9 +19,6 @@ Class UserController Extends BaseController
 
     public function getUser()
     {
-
-
-
             $user_id = $this->extractUserid();
 
             error_log("Fetching data for $user_id");

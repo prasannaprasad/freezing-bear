@@ -9,7 +9,7 @@ include_once('StampCloudDao.php');
 
 class StampDao
 {
-    public function addStamp($by_user_id,$to_user_id,$verb_name,$noun_name)
+    public function addStamp($by_user_id,$to_user_id,$verb_name,$noun_name) //TODO take create_time as optional arg
     {
         $db = DBConnection::getInstance()->getHandle();
 

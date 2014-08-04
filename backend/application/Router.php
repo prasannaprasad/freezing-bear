@@ -103,12 +103,26 @@ class Router
                 else
                     throw new WebServiceException ("Unsupported action on Verb", 1111,__FILE__,__LINE__);
                 break;
+            case "verbs":
+                $this->controller = 'Verb';
+                if($request_method == 'GET')
+                    $this->action = 'searchVerbs';
+                else
+                    throw new WebServiceException ("Unsupported action on Verbs", 1111,__FILE__,__LINE__);
+                break;
             case "noun":
                 $this->controller = 'Noun';
                 if($request_method == 'POST')
                     $this->action = 'addNoun';
                 else
                     throw new WebServiceException ("Unsupported action on Noun", 1111,__FILE__,__LINE__);
+                break;
+            case "nouns":
+                $this->controller = 'Noun';
+                if($request_method == 'GET')
+                    $this->action = 'searchNouns';
+                else
+                    throw new WebServiceException ("Unsupported action on Nouns", 1111,__FILE__,__LINE__);
                 break;
             default:
                 error_log("Unsupported controller ");
