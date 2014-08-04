@@ -2,21 +2,34 @@
 
 <?php
 
+define ('__SITE_PATH', '/Users/gbaskaran/projects/freezing-bear/backend/');
+
 require_once( '../vendor/facebook/php-sdk-v4/autoload.php' );
 require_once( 'FBUser.php');
-require_once( 'GetFacebookUser.php');
+require_once( 'FacebookConnect.php');
 require_once( 'Utils/Utils.php');
+require_once( '../../model/dao/UserDao.php');
 
-use FBDataExtractor\GetFacebookUser;
+use FBDataExtractor\FacebookConnect;
 use FBDataExtractor\Utils\Utils;
+
 
 $appid = '1445531622391571';
 $app_secret ='42a95574a805e77f0480f95e7772787e';
-$access_token = 'CAAUitA7dPxMBANW7QCDNlqyAkkJScyFSZCFqfG8FcOnDWq6OXe9l93MDdbprK2I8WnVmozs2O3dwIdrZAUfCVZCdvehH05G2oiP1po1DWzXK2DoKUZA9NIvr7PSNHzc6l0JRT9qhXGkO0nMYW1wUdHL9ZCHIUjZCgdwobZA8kZCnKN6OWK8srdfpS6LX2Vm7t727Ca7Y0sfIE248LYZBIRQ74aL7BNWZCoGL0ZD';
+$access_token = 'CAAUitA7dPxMBAEBL7zuKgLZBCIjXnY4mlPlLhIRzg2xfDE5gkftXllC9C6Q9E4UmJOqZBjZC6gK9Ssi0FJEHulsvCJqyZBfxuXdTCgnYKiGZCf8IZBy8xTfrx9c0qjmocGjUZA4OmULpj4szOUtFfOZBoPFw8b3aE9kTIxxnMvknccHuNC9BuBu3RHzfyH8uQwe0mStZAFbfPehRHj50qxV4e';
 
 try{
-    $fbUser = (new GetFacebookUser($appid, $app_secret, $access_token))->getFBUser();
+    $fbConnect = new FacebookConnect($appid, $app_secret, $access_token);
+    $fbUser = $fbConnect->getFBUser();
+    
     printDebugInfo($fbUser);
+    
+    $userDao = new UserDao();
+    $userDao->addUser($fbUser->getId(), $fbUser->getFirstName(), $fbUser->getLastName(), 
+                       $fbUser->getProfilePic(), 
+                       $fbUser->getGender(), $fbUser->getHomeTown(), $fbUser->getRelationshipStatus(), 
+                       $fbUser->getBirthday(), $fbUser->getEmail(), $fbUser->getName(), $fbUser->getLocation(), $fbUser->getTimezone());
+    
 }catch(Exception $ex){
     error_log("Exception in getting user details for ".$access_token);
 }

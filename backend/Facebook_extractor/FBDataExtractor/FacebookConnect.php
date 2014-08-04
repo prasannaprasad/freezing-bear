@@ -21,11 +21,11 @@ use Facebook\FacebookRequestException;
 use FBDataExtractor\FBUser;
 
 /**
- * Description of GetFacebookUser
+ * Description of FacebookConnect
  *
  * @author gbaskaran
  */
-class GetFacebookUser {
+class FacebookConnect {
 
     private $appid;
     private $app_secret;
