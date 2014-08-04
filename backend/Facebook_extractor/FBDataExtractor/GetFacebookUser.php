@@ -125,10 +125,20 @@ class GetFacebookUser {
         $fbUser->setGender(Utils::getValueSafelyArr($userData, 'gender'));
         $fbUser->setEmail(Utils::getValueSafelyArr($userData, 'email'));
         $fbUser->setTimezone(Utils::getValueSafelyArr($userData, 'timezone'));
+        $fbUser->setRelationshipStatus(Utils::getValueSafelyArr($userData, 'relationship_status'));
         $locationArray = Utils::getValueSafelyArr($userData, 'location');
-        if (is_array($locationArray) && count($userData) != 0) {
+        if (is_array($locationArray) && count($locationArray) != 0) {
             $fbUser->setLocation(Utils::getValueSafelyArr($locationArray, 'name'));
         }
+        $hometownArray = Utils::getValueSafelyArr($userData, 'hometown');
+        if (is_array($hometownArray) && count($hometownArray) != 0) {
+            $fbUser->setHomeTown(Utils::getValueSafelyArr($locationArray, 'name'));
+        }
+        
+        $profilePicArray = Utils::getValueSafelyArr($userData, 'picture');
+        $profileData = Utils::getValueSafelyArr($profilePicArray, 'data');
+        $fbUser->setProfilePic(Utils::getValueSafelyArr($profileData, 'url'));
+
         $this->populateEducation($fbUser, $userData);
         $this->populateWork($fbUser, $userData);
         return $fbUser;
@@ -177,7 +187,7 @@ class GetFacebookUser {
      * @return type Array
      */
     private function getUserData() {
-        $URL = '/me?fields=first_name,last_name,name,birthday,gender,location,email,timezone,work,education,'
+        $URL = '/me?fields=first_name,last_name,name,birthday,gender,location,email,timezone,work,education,relationship_status,hometown,picture,'
                 . 'likes.fields(name,category,created_time),'
                 . 'friends.fields(first_name,last_name,name,birthday,gender,location,email,timezone,work,education,'
                 . 'likes.fields(name,category,created_time))';

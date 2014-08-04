@@ -25,6 +25,9 @@ class FBUser {
                 ."\ntimezone = ".$this->timezone
                 ."\ngender = ".$this->gender
                 ."\nemail = ".$this->email
+                ."\nrelationship_status = ".$this->relationshipStatus
+                ."\nhome town = ".$this->homeTown
+                ."\nprofile pic = ".$this->profilePic
                 ."\nEducation = ".implode(',', $this->educationHistory)
                 ."\nWork = ".  implode(',', $this->workHistory);
 
@@ -41,12 +44,39 @@ class FBUser {
     private  $timezone;
     private  $gender;
     private  $email;
+    private  $homeTown;
+    private  $relationshipStatus;
+    private  $profilePic;
     private  $workHistory = array();
     private  $educationHistory = array();
     private $likes;
     private $friendList;
     
-    
+    public function getHomeTown() {
+        return $this->homeTown;
+    }
+
+    public function getRelationshipStatus() {
+        return $this->relationshipStatus;
+    }
+
+    public function getProfilePic() {
+        return $this->profilePic;
+    }
+
+    public function setHomeTown($homeTown) {
+        $this->homeTown = $homeTown;
+    }
+
+    public function setRelationshipStatus($relationshipStatus) {
+        $this->relationshipStatus = $relationshipStatus;
+    }
+
+    public function setProfilePic($profilePic) {
+        $this->profilePic = $profilePic;
+    }
+
+        
     public function getFriendList() {
         return $this->friendList;
     }
