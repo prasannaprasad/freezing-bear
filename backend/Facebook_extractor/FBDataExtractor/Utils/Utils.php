@@ -20,7 +20,7 @@ public static function printTwoDimenArray($array){
         echo "\nNothing to print";
         return;
     }
-    
+
     $keys = array_keys($array[0]);
     foreach($array as $row){
         echo "\n---------------------------------------------------------";
