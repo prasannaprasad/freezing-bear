@@ -49,4 +49,21 @@ class VerbDao
         error_log("Verb $name inserted with $id and status $status");
         return new Verb($id,$name,$create_time);
     }
+
+    public function searchVerbs($query)
+    {
+        $db = DBConnection::getInstance()->getHandle();
+        $query = " SELECT * from Verbs where name like '%" . $query . "%'";
+
+        $results = $db->getRecords($query);
+        $verbs = array();
+
+        foreach($results as $r)
+            array_push($verbs, new Verb());
+
+
+
+
+
+    }
 }

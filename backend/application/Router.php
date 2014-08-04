@@ -84,6 +84,8 @@ class Router
 
                 if($uri_components[5] === 'stampcloud')
                     $this->action = 'getUserStampCloud';
+                else if ($request_method == 'POST')
+                    $this->action = 'addUser';
                 else
                     $this->action = 'getUser';
                 break;

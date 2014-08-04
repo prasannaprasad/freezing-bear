@@ -19,6 +19,7 @@ try
 }
 catch (WebServiceException $e)
 {
+    $err["id"] = 0;
     $err["code"] = $e->getCode();
     $err["message"] = $e->getMessage();
     $registry->data = json_encode($err);
