@@ -94,7 +94,7 @@
   the FB.login() function when clicked.
 -->
 
-<fb:login-button scope="public_profile,email,user_about_me,user_location,user_birthday,user_education_history,user_work_history,user_friends" onlogin="checkLoginState();">
+<fb:login-button scope="public_profile,email,user_about_me,user_location,user_birthday,user_education_history,user_work_history,user_friends,user_likes,user_hometown,user_relationships" onlogin="checkLoginState();">
 </fb:login-button>
 
 <div id="status">
