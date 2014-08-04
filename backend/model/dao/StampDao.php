@@ -27,6 +27,7 @@ class StampDao
         $stmt = $db->getPreparedStatement($prepared_query);
         $stmt->bind_param("ssisiss",$by_user_id,$to_user_id,$verb_id,$verb_name,$noun_id,$noun_name,$create_time);
 
+        error_log("Executing $prepared_query with params $by_user_id,$to_user_id,$verb_id,$verb_name,$noun_id,$noun_name,$create_time");
         if(!($status = $stmt->execute()))
             throw new WebServiceException("Unable to execute query  " ,3017,__FILE__,__LINE__);
         $id = $stmt->insert_id;

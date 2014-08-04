@@ -47,6 +47,8 @@ class NounDao
         $stmt = $db->getPreparedStatement($prepared_query);
         $stmt->bind_param("ss",$name,$create_time);
 
+        error_log("Executing $prepared_query with params $name,$create_time");
+
         if(!($status = $stmt->execute()))
             throw new WebServiceException("Unable to execute query  " ,3017,__FILE__,__LINE__);
         $id = $stmt->insert_id;

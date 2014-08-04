@@ -36,6 +36,8 @@ class UserDao
         $stmt->bind_param("ssssssssssss",$fb_id,$first_name,$last_name,$name,$email,$location,$gender,$relationship_status,$timezone,
                                          $create_time,$birthdate,$profile_pic);
 
+        error_log("Executing $prepared_query with params $fb_id,$first_name,$last_name,$name,$email,$location,$gender,$relationship_status,$timezone,
+                                         $create_time,$birthdate,$profile_pic");
         if(!($status = $stmt->execute()))
             throw new WebServiceException("Unable to execute query  " ,3017,__FILE__,__LINE__);
         $id = $stmt->insert_id;

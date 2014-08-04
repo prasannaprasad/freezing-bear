@@ -34,6 +34,8 @@ class StampCloudDao
         $count = 1;
         $stmt->bind_param("ssi",$fb_user_id,$noun_name,$count);
 
+        error_log("Executing $prepared_query with params $fb_user_id,$noun_name,$count");
+
         if(!($status = $stmt->execute()))
             throw new WebServiceException("Unable to execute query  " ,3017,__FILE__,__LINE__);
         $stmt->close();
