@@ -17,10 +17,21 @@ class NounDao
 
     public function getNounByName($noun_name)
     {
-        $db = DBConnection::getInstance()->getHandle();
+        /*
         $query = "Select * from Nouns where name='" . $noun_name . "'";
         $result = $db->getSingleRecord($query);
         return new Noun($result["id"],$result["name"], $result["create_time"]);
+        */
+        $db = DBConnection::getInstance()->getHandle();
+        $prepared_query = "Select id,name,create_time from Nouns where name= ?";
+        $stmt = $db->getPreparedStatement($prepared_query);
+        $stmt->bind_param("s",$noun_name);
+        if(!($status = $stmt->execute()))
+            throw new WebServiceException("Unable to execute query  " ,3017,__FILE__,__LINE__);
+        $stmt->store_result();
+        $id = $name = $create_time = '';
+        $stmt->bind_result($id,$name,$create_time);
+        return new Noun($id,$name,$create_time);
     }
 
     public function addNoun($name,$graceful = false)

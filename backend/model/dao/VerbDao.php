@@ -19,9 +19,20 @@ class VerbDao
     public function getVerbByName($verb_name)
     {
         $db = DBConnection::getInstance()->getHandle();
+        $prepared_query = "Select id,name,create_time from Verbs where name= ?";
+        $stmt = $db->getPreparedStatement($prepared_query);
+        $stmt->bind_param("s",$verb_name);
+        if(!($status = $stmt->execute()))
+            throw new WebServiceException("Unable to execute query  " ,3017,__FILE__,__LINE__);
+        $stmt->store_result();
+        $id = $name = $create_time = '';
+        $stmt->bind_result($id,$name,$create_time);
+        return new Verb($id,$name,$create_time);
+        /*
         $query = "Select * from Verbs where name='" . $verb_name . "'";
         $result = $db->getSingleRecord($query);
         return new Verb($result["id"],$result["name"], $result["create_time"]);
+        */
     }
 
     public function addVerb($name,$graceful = false)

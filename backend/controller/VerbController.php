@@ -23,7 +23,7 @@ Class VerbController Extends BaseController
 
     }
 
-    public function searchVerbs($query)
+    public function searchVerbs()
     {
         $query = $this->registry->query_params["query"];
 

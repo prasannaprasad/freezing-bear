@@ -23,7 +23,7 @@ Class NounController Extends BaseController
 
     }
 
-    public function searchNouns($query)
+    public function searchNouns()
     {
         $query = $this->registry->query_params["query"];
 
