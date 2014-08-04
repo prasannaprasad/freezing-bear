@@ -16,11 +16,12 @@ class UserDao
         $query = "Select * from Usertest where fb_id='" . $user_id . "'";
         $result = $db->getSingleRecord($query);
 
-       // $user = new User($result["id"],$result["fb_id"],$result["first_name"],$result["last_name"],$result["create_time"],
-                //         $result["mod_time"],$result["fb_access_token"],$result["profile_pic"],$result["gender"],$result["hometown_name"],
-                  //       $result["relationship_status"],$result["birthdate"]);
 
-      //  return $user;
+        $user = new User($result["id"],$result["fb_id"],$result["first_name"],$result["last_name"],$result["create_time"],
+                        $result["profile_pic"],$result["gender"],$result["hometown_name"],$result["relationship_status"],$result["birthdate"],
+                        $result["email"],$result["name"],$result["location"],$result["timezone"]);
+
+        return $user;
     }
 
     public function addUser($fb_id,$first_name,$last_name,$profile_pic,
