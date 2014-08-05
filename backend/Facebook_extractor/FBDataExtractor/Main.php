@@ -77,7 +77,6 @@ function persistFriends($fbUser){
     $userFriendsDao = new UserFriendsDao();
     foreach($friendList as $friend){
         persistUserBasicInfo($friend);
-        persistStamps($friend);
         $toId = $friend->getId();
         echo "Adding toId =".$toId.' and fromID = '.$fromId;
         $userFriendsDao->addFriend($fromId, $toId);
