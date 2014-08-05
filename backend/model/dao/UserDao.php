@@ -3,6 +3,7 @@
 
 include_once __SITE_PATH . '/model/dao/' . 'DBConnection.php';
 include_once __SITE_PATH . '/model/entities/' . 'User.php';
+include_once __SITE_PATH . '/model/entities/' . 'MiniUser.php';
 
 class UserDao
 {
