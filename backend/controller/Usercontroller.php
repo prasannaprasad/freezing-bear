@@ -5,10 +5,23 @@ include_once('model/dao/UserFriendsDao.php');
 include_once('model/dao/StampCloudDao.php');
 include_once('model/dao/StampDao.php');
 include_once('application/WebServiceException.php');
+require_once __SITE_PATH."/Facebook_extractor/FBDataExtractor/Utils/Utils.php";
+use FBDataExtractor\Utils\Utils;
 
 Class UserController Extends BaseController
 {
+    public function getUsersTaggedWith(){
+        $fb_id = $this->extractUserid();
+        $noun = Utils::getValueSafelyArr($this->registry->query_params,'noun');
+        if($noun == '' || $fb_id == ''){
+            throw new WebServiceException("Can't search without noun param",2001,__FILE__,__LINE__);
+        }
 
+        $userDao = new UserDao();
+        $users = $userDao->getUsersTaggedWith($noun, $fb_id);
+        return $this->registry->data = json_encode($users);
+    }
+    
     private function extractUserid()
     {
         $uri_components = $this->registry->uri_components;
