@@ -3,6 +3,7 @@
 include_once('model/dao/UserDao.php');
 include_once('model/dao/UserFriendsDao.php');
 include_once('model/dao/StampCloudDao.php');
+include_once('model/dao/StampDao.php');
 include_once('application/WebServiceException.php');
 
 Class UserController Extends BaseController
@@ -54,13 +55,31 @@ Class UserController Extends BaseController
         $fetch_users = $this->registry->query_params["fetch_users"];
         if(!isset($fetch_users) || $fetch_users == "" || $fetch_users == "false")
             $fetch_users = false;
-        else$fetch_users = true;
+        else $fetch_users = true;
 
         error_log("Fetching stampcloud for $user_id with offset $offset and limit $limit");
         $stamp_cloud_dao = new StampCloudDao();
         $stamp_cloud = $stamp_cloud_dao->getUserStampCloud($user_id,$offset,$limit,$fetch_users);
 
         $this->registry->data = $stamp_cloud->getJSON();
+
+    }
+
+    public function getUserProfileFeed()
+    {
+        $user_id = $this->extractUserid();
+        $offset = $this->registry->query_params["offset"];
+        if(!isset($offset) || $offset == "") $offset = 0;
+
+        $limit = $this->registry->query_params["limit"];
+        if(!isset($limit) || $limit == "") $limit = 20;
+
+        error_log("Fetching user profile feed for $user_id with offset $offset and limit $limit" );
+
+        $stampDao = new StampDao();
+        $stamps = $stampDao->getUserProfileFeed($user_id,$offset,$limit);
+
+        $this->registry->data = json_encode($stamps);
 
     }
 
