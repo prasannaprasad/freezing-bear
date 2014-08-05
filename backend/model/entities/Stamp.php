@@ -11,8 +11,8 @@ include_once('BaseContainer.php');
 class Stamp extends BaseContainer
 {
     public $id;
-    public $by_user_id;
-    public $to_user_id;
+    public $by_mini_user ;
+    public $to_mini_user;
     public $noun_id;
     public $noun_name;
     public $verb_id;
@@ -22,8 +22,8 @@ class Stamp extends BaseContainer
     public function __construct($id,$by_user_id,$to_user_id,$noun_id,$noun_name,$verb_id,$verb_name,$create_time)
     {
         $this->id = $id;
-        $this->by_user_id = $by_user_id;
-        $this->to_user_id = $to_user_id;
+        $this->by_mini_user = $by_user_id;
+        $this->to_mini_user = $to_user_id;
         $this->noun_id = $noun_id;
         $this->noun_name = $noun_name;
         $this->verb_id = $verb_id;

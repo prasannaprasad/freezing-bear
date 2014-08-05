@@ -39,7 +39,7 @@ class StampCloudDao
         $db = DBConnection::getInstance()->getHandle();
 
         $noun_name = addslashes($noun_name);
-        $query = "select Usertest.fb_id, Usertest.name,Usertest.profile_pic from Usertest where fb_id in
+        $query = "select Usertest.fb_id, Usertest.name,Usertest.profile_pic,Usertest.email from Usertest where fb_id in
                   (Select by_user_id from Stamps where to_user_id = '" . $fb_user_id . "' and noun_name = '" . $noun_name . "')";
         $result_set = $db->getRecords($query);
         $mini_users = array();

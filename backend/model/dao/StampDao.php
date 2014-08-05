@@ -40,4 +40,33 @@ class StampDao
         return new Stamp($id,$by_user_id,$to_user_id,$noun_id,$noun_name,$verb_id,$verb_name,$create_time);
 
     }
+
+    public function getUserProfileFeed($user_id,$offset,$limit)
+    {
+        $db = DBConnection::getInstance()->getHandle();
+        $query = "SELECT * from Stamps where by_user_id = '" . $user_id . "' OR to_user_id = '" . $user_id . "' order by create_time desc LIMIT $offset,$limit  ";
+
+        $result = $db->getRecords($query);
+        $stamps = array();
+
+        $user_ids = array();
+        foreach($result as $r)
+        {
+
+            array_push($user_ids,$r["by_user_id"]);
+            array_push($user_ids,$r["to_user_id"]);
+
+            $userDao = new UserDao();
+            $mini_user_map = $userDao->fillMiniUserMap($user_ids);
+
+            $by_mini_user = $mini_user_map[$r["by_user_id"]];
+            $to_mini_user = $mini_user_map[$r["to_user_id"]];
+
+            $stamp = new Stamp($r["id"],$by_mini_user,$to_mini_user,$r["noun_id"],$r["noun_name"],$r["verb_id"],$r["verb_name"],
+                $r["create_time"]);
+            array_push($stamps,$stamp);
+        }
+
+        return $stamps;
+    }
 }

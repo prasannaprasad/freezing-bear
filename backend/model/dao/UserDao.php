@@ -48,4 +48,28 @@ class UserDao
         return new User($id,$fb_id,$first_name,$last_name,$create_time,$profile_pic,$gender,$hometown_name,$relationship_status,
                         $birthdate,$email,$name,$location,$timezone);
     }
+
+    public function fillMiniUserMap($user_ids)
+    {
+        $db = DBConnection::getInstance()->getHandle();
+        $unique_user_ids = array_unique($user_ids);
+
+        $in_clause = "('" . implode("','", $unique_user_ids) . "')";
+
+        error_log("Fetching user $in_clause");
+
+        $query = "SELECT fb_id, name,profile_pic,email from Usertest where fb_id in $in_clause";
+
+        $results = $db->getRecords($query);
+
+        $userMap = '';
+        foreach($results as $r)
+        {
+            $userMap[$r["fb_id"]] = new MiniUser($r["fb_id"],$r["profile_pic"],$r["email"],$r["name"]);
+        }
+
+        error_log(print_r($userMap,1));
+        return $userMap;
+
+    }
 }
