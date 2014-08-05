@@ -27,4 +27,20 @@ class UserFriendsDao
         error_log("Two way Friend link created between $source_friend_id and $target_friend_id ");
         return new UserFriend($id,$source_friend_id,$target_friend_id,$create_time);
     }
+
+    public function getUserFriends($user_id)
+    {
+        $db = DBConnection::getInstance()->getHandle();
+
+        $query = "Select fb_id,name,email,profile_pic from Usertest,UserFriends where source_friend_id ='" . $user_id . "' AND target_friend_id = fb_id ";
+        $result = $db->getRecords($query);
+
+        $mini_users = array();
+        foreach($result as $r)
+        {
+            array_push($mini_users,$r);
+        }
+
+        return $mini_users;
+    }
 }
