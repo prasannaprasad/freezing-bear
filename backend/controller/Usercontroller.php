@@ -33,10 +33,11 @@ Class UserController Extends BaseController
     public function getUserFriends()
     {
         $user_id = $this->extractUserid();
-        error_log("Fetching friends for $user_id");
+
+        error_log("Fetching friends for $user_id ");
 
         $userFriendsDao = new UserFriendsDao();
-        $mini_users = $userFriendsDao->getUserFriends($user_id);
+        $mini_users = $userFriendsDao->getUserFriends($user_id);;
 
         $this->registry->data = json_encode($mini_users);
     }
@@ -44,9 +45,20 @@ Class UserController Extends BaseController
     public function getUserStampCloud()
     {
         $user_id = $this->extractUserid();
-        error_log("Fetching stampcloud for $user_id");
+        $offset = $this->registry->query_params["offset"];
+        if(!isset($offset) || $offset == "") $offset = 0;
+
+        $limit = $this->registry->query_params["limit"];
+        if(!isset($limit) || $limit == "") $limit = 20;
+
+        $fetch_users = $this->registry->query_params["fetch_users"];
+        if(!isset($fetch_users) || $fetch_users == "" || $fetch_users == "false")
+            $fetch_users = false;
+        else$fetch_users = true;
+
+        error_log("Fetching stampcloud for $user_id with offset $offset and limit $limit");
         $stamp_cloud_dao = new StampCloudDao();
-        $stamp_cloud = $stamp_cloud_dao->getUserStampCloud($user_id);
+        $stamp_cloud = $stamp_cloud_dao->getUserStampCloud($user_id,$offset,$limit,$fetch_users);
 
         $this->registry->data = $stamp_cloud->getJSON();
 
