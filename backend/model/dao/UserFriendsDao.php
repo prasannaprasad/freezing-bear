@@ -1,6 +1,8 @@
 <?php
 include_once('DBConnection.php');
 include_once __SITE_PATH . '/model/entities/' . 'UserFriend.php';
+include_once __SITE_PATH . '/model/entities/' . 'MiniUser.php';
+
 
 class UserFriendsDao
 {
@@ -38,7 +40,8 @@ class UserFriendsDao
         $mini_users = array();
         foreach($result as $r)
         {
-            array_push($mini_users,$r);
+            $mini_user = new MiniUser($r["fb_id"],$r["profile_pic"],$r["email"],$r["name"]);
+            array_push($mini_users,$mini_user);
         }
 
         return $mini_users;

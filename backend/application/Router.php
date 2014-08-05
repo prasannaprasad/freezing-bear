@@ -81,6 +81,8 @@ class Router
             case "user":
                 $this->controller = 'User';
                 $uri_components[4] = preg_replace("/\?.*/","",$uri_components[4]);
+                $uri_components[5] = preg_replace("/\?.*/","",$uri_components[5]);
+
 
                 if($uri_components[5] === 'stampcloud')
                     $this->action = 'getUserStampCloud';

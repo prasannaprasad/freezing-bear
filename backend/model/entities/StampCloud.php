@@ -11,7 +11,7 @@ include_once ('BaseContainer.php');
 class StampCloud extends BaseContainer
 {
     public $fb_user_id;
-    public $stamp_count;
+    public $stamp_details;
 
 
     public function __construct($fb_user_id)
@@ -20,8 +20,10 @@ class StampCloud extends BaseContainer
 
     }
 
-    public function addNounCount($noun_name,$count)
+    public function addNoun($noun_name,$obj)
     {
-        $this->stamp_count[$noun_name] = $count;
+        $this->stamp_details[$noun_name] = $obj;
     }
+
+
 }
