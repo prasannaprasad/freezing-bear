@@ -1,8 +1,8 @@
 <?php
 
 include_once('model/dao/UserDao.php');
+include_once('model/dao/UserFriendsDao.php');
 include_once('model/dao/StampCloudDao.php');
-
 include_once('application/WebServiceException.php');
 
 Class UserController Extends BaseController
@@ -28,6 +28,17 @@ Class UserController Extends BaseController
 
             $this->registry->data = $user->getJSON();
 
+    }
+
+    public function getUserFriends()
+    {
+        $user_id = $this->extractUserid();
+        error_log("Fetching friends for $user_id");
+
+        $userFriendsDao = new UserFriendsDao();
+        $mini_users = $userFriendsDao->getUserFriends($user_id);
+
+        $this->registry->data = json_encode($mini_users);
     }
 
     public function getUserStampCloud()
