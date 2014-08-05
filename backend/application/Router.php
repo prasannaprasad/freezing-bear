@@ -38,6 +38,7 @@ class Router
         include ($this->file);
 
         $controller = new $class($this->registry);
+        
 
         if (is_callable(array($controller, $this->action)) == false)
         {
@@ -75,7 +76,6 @@ class Router
         }
 
         $uri_components[3] = preg_replace("/\?.*/","",$uri_components[3]); // extract uri path minus params
-
         switch($uri_components[3])
         {
             case "user":
@@ -127,6 +127,14 @@ class Router
                     $this->action = 'searchNouns';
                 else
                     throw new WebServiceException ("Unsupported action on Nouns", 1111,__FILE__,__LINE__);
+                break;
+            case "search":
+                $this->controller = 'Search';
+                if($request_method == 'GET'){
+                    $this->action = 'searchInMixedMode';
+                }else{
+                    throw new WebServiceException ("Unsupported action on Search", 1111,__FILE__,__LINE__);
+                }
                 break;
             default:
                 error_log("Unsupported controller ");
