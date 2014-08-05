@@ -6,6 +6,21 @@ include_once __SITE_PATH . '/model/entities/' . 'MiniUser.php';
 
 class UserDao {
 
+    public function getUsersTaggedWith($noun, $fb_source_id) {
+        $query = "select * from Usertest where fb_id in ( select to_user_id from Stamps where noun_name ='" . $noun . "' and "
+                . "to_user_id in (select target_friend_id from UserFriends where source_friend_id ='" . $fb_source_id . "') );";
+
+        $db = DBConnection::getInstance()->getHandle();
+        $results = $db->getRecords($query);
+        $users = array();
+        foreach ($results as $result) {
+            $user = new User($result["id"], $result["fb_id"], $result["first_name"], $result["last_name"], $result["create_time"], $result["profile_pic"], $result["gender"], $result["hometown_name"], $result["relationship_status"], $result["birthdate"], $result["email"], $result["name"], $result["location"], $result["timezone"]);
+            $users[] = $user;
+        }
+
+        return $users;
+    }
+
     public function searchUsers($name, $fb_id) {
         $db = DBConnection::getInstance()->getHandle();
 

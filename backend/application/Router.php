@@ -88,7 +88,9 @@ class Router
                     $this->action = 'getUserStampCloud';
                 else if ($uri_components[5] === 'friends')
                     $this->action = 'getUserFriends';
-                else if ($request_method == 'POST')
+                else if ($uri_components[5] == 'noun'){
+                    $this->action = 'getUsersTaggedWith';
+                }else if ($request_method == 'POST')
                     $this->action = 'addUser';
                 else
                     $this->action = 'getUser';
