@@ -69,4 +69,46 @@ class StampDao
 
         return $stamps;
     }
+
+    public function getUserHomeFeed($user_id,$offset,$limit)
+    {
+        $db = DBConnection::getInstance()->getHandle();
+
+        $userFriendsDao = new UserFriendsDao();
+        $mini_friends = $userFriendsDao->getUserFriends($user_id);
+        $user_friend_ids = array($user_id);
+
+        $userDao = new UserDao();
+        $user = $userDao->getUserById($user_id);
+
+        $mini_user_map[$user_id] = new MiniUser($user->fb_id,$user->profile_pic,$user->email,$user->name);
+        $mini_user_map["facebook"] = new MiniUser("facebook","","","facebook");
+
+        foreach($mini_friends as $friend)
+        {
+            array_push($user_friend_ids, $friend->fb_id);
+            $mini_user_map[$friend->fb_id] = $friend;
+        }
+
+        $unique_user_ids = array_unique($user_friend_ids);
+        $in_clause = "('" . implode("','", $unique_user_ids) . "')";
+
+        $query = "SELECT * from Stamps where by_user_id IN $in_clause OR to_user_id IN  $in_clause  order by create_time desc LIMIT $offset,$limit  ";
+
+        $result = $db->getRecords($query);
+        $stamps = array();
+
+        foreach($result as $r)
+        {
+
+            $by_mini_user = $mini_user_map[$r["by_user_id"]];
+            $to_mini_user = $mini_user_map[$r["to_user_id"]];
+
+            $stamp = new Stamp($r["id"],$by_mini_user,$to_mini_user,$r["noun_id"],$r["noun_name"],$r["verb_id"],$r["verb_name"],
+                $r["create_time"]);
+            array_push($stamps,$stamp);
+        }
+
+        return $stamps;
+    }
 }
