@@ -14,12 +14,14 @@ class Verb extends BaseContainer
     public $id;
     public $name;
     public $create_time;
+    public $form;
 
-    public function __construct($id,$name,$create_time)
+    public function __construct($id,$name,$create_time,$form)
     {
         $this->id = $id;
         $this->name = $name;
         $this->create_time = $create_time;
+        $this->form = $form;
     }
 
 }
