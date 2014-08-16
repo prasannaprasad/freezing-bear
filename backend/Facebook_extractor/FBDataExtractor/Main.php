@@ -17,7 +17,7 @@ use FBDataExtractor\Utils\Utils;
 
 $appid = '1445531622391571';
 $app_secret = '42a95574a805e77f0480f95e7772787e';
-$access_token = 'CAAUitA7dPxMBAEwZCFMmBUc3x30ZAdftOwy0CBfwdPKWWcZBJwRiqWRZAYquBC49mZCtZBLFSC64LQ9vhMxHBRwNbZCs59d8gsVIEeD8pIFQ8rsD5iS55oyixKeuNMeQNDySzjZBnOIbyu1nn9FJf96PP5KhNawBU3c7E3zmv4AizgZAdM6IJZC2vArX9xqWmzMHqXWPWnwYHBAxpgkzF8WfnV';
+$access_token = 'CAAUitA7dPxMBAIBYLwFxiOzywKB4d0c6LBHIpxxEKq4ZA4KNs9ZCRsEoeDfA3OPNyw04Ktj6huZCzHoLDeLkNcGQlrclOTVmRkpF5WmFLAe131zGWWz8k1U01zsuTWZAMIEdnnXBvyKPWZAuT1VI9jzlaPR8Wcek3X4PA6iCVt2qDhw8q31VQVBIoNFR8zdDcWNLNOA2t9Jr16MWLM2HY';
 
 try {
     $fbConnect = new FacebookConnect($appid, $app_secret, $access_token);
@@ -65,7 +65,7 @@ function persistStamps($fbUser){
     $likes = $fbUser->getLikes();
     if(is_array($likes) && count($likes) != 0){
         foreach($likes as $like){
-            $stampDao->addStamp("facebook", $fbUser->getId(), 'like', $like['name']);
+            $stampDao->addStamp("facebook", $fbUser->getId(), 'like', $like['name'], $like['created_time']);
         }
     }
     

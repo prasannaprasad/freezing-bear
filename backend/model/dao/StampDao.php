@@ -9,7 +9,7 @@ include_once('StampCloudDao.php');
 
 class StampDao
 {
-    public function addStamp($by_user_id,$to_user_id,$verb_name,$noun_name) //TODO take create_time as optional arg
+    public function addStamp($by_user_id,$to_user_id,$verb_name,$noun_name, $create_time = "")
     {
         $db = DBConnection::getInstance()->getHandle();
 
@@ -22,7 +22,12 @@ class StampDao
 
         $prepared_query = " INSERT  into Stamps(by_user_id,to_user_id,verb_id,verb_name,noun_id,noun_name,create_time)
                             values (?,?,?,?,?,?,?)";
-        $create_time = date("Y-m-d H:i:s");
+        if($create_time == ""){
+            $create_time = date("Y-m-d H:i:s");
+        }else{
+            $create_time = date("Y-m-d H:i:s",strtotime($create_time));
+            
+        }
 
         $stmt = $db->getPreparedStatement($prepared_query);
         $stmt->bind_param("ssisiss",$by_user_id,$to_user_id,$verb_id,$verb_name,$noun_id,$noun_name,$create_time);
