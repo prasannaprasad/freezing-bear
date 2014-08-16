@@ -81,8 +81,9 @@ class UserDao
     }
 
     public function fillMiniUserMap($user_ids)
-    {        $db = DBConnection::getInstance()->getHandle();
-    $unique_user_ids = array_unique($user_ids);
+    {
+        $db = DBConnection::getInstance()->getHandle();
+        $unique_user_ids = array_unique($user_ids);
 
         $in_clause = "('" . implode("','", $unique_user_ids) . "')";
 

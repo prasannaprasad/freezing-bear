@@ -96,4 +96,22 @@ Class UserController Extends BaseController
 
     }
 
+    public function getUserHomeFeed()
+    {
+        $user_id = $this->extractUserid();
+        $offset = $this->registry->query_params["offset"];
+        if(!isset($offset) || $offset == "") $offset = 0;
+
+        $limit = $this->registry->query_params["limit"];
+        if(!isset($limit) || $limit == "") $limit = 20;
+
+        error_log("Fetching user home feed for $user_id with offset $offset and limit $limit" );
+
+        $stampDao = new StampDao();
+        $stamps = $stampDao->getUserHomeFeed($user_id,$offset,$limit);
+
+        $this->registry->data = json_encode($stamps);
+
+    }
+
 }
