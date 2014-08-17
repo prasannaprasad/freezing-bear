@@ -9,7 +9,7 @@ include_once('StampCloudDao.php');
 
 class StampDao
 {
-    public function addStamp($by_user_id,$to_user_id,$verb_name,$verb_form_name,$noun_name, $create_time = "")
+    public function addStamp($by_user_id,$to_user_id,$verb_name,$verb_form_name,$noun_name,$noun_type, $create_time = "")
     {
         $db = DBConnection::getInstance()->getHandle();
 
@@ -17,7 +17,7 @@ class StampDao
         $verb_id  = $verbDao->addVerb($verb_name,$verb_form_name, true)->id;
 
         $nounDao = new NounDao();
-        $noun_id  = $nounDao->addNoun($noun_name, true)->id;
+        $noun_id  = $nounDao->addNoun($noun_name,$noun_type, true)->id;
 
 
         $prepared_query = " INSERT  into Stamps(by_user_id,to_user_id,verb_id,verb_form_name,noun_id,noun_name,create_time)
